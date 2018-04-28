@@ -11,7 +11,7 @@ var burger = {
     orm.create("burgers", ["burger_name", "devoured"], [name, false], cb);
   },
 
-  update: function(table, objColVals, condition, cb) {
+  update: function(objColVals, condition, cb) {
     orm.update("burgers", objColVals, condition, function(res) {
       cb(res);
     });
