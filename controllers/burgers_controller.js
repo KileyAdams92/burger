@@ -1,8 +1,3 @@
-//router.get returns all burgers in console
-//router.post CANNOT POST
-//router.put DOES NOT WORK
-//router.delete deletes everything in the database
-
 var express = require("express");
 
 var router = express.Router();
@@ -10,14 +5,17 @@ var burger = require("../models/burger.js");
 
 router.get("/", function(req, res) {
   burger.all(function(allBurgers) {
-    console.log(allBurgers);
-    res.send(allBurgers);
+    var hbsObject = {
+      burger: allBurgers
+    };
+    console.log(hbsObject);
+    res.render("index", hbsObject);
   });
 });
 
 // Create a new burger
 router.post("/api/burgers", function(req, res) {
-  burger.create(req.body.name, function(newBurger) {
+  burger.create(["burger_name"], [req.body.burger], function(newBurger) {
     res.send({ id: newBurger.insertId });
   });
 });
@@ -26,7 +24,7 @@ router.put("/api/burgers/:id", function(req, res) {
   var condition = "id = " + req.params.id;
   burger.update(
     {
-      devoured: req.body.devoured
+      devoured: true
     },
     condition,
     function(result) {
@@ -39,17 +37,5 @@ router.put("/api/burgers/:id", function(req, res) {
     }
   );
 });
-
-// Delete a burger
-// router.delete("/burgers/:id", function(req, res) {
-//   var condition = "id = " + req.params.id;
-//   burger.delete(condition, function(res) {
-//     if (res.affectedRows === 0) {
-//       return res.status(404).end();
-//     } else {
-//       res.status(200).end();
-//     }
-//   });
-// });
 
 module.exports = router;

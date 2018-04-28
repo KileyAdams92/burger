@@ -7,18 +7,16 @@ var burger = {
     });
   },
 
-  create: function(name, cb) {
-    orm.create("burgers", ["burger_name", "devoured"], [name, false], cb);
+  create: function(cols, vals, cb) {
+    orm.create("burgers", cols, vals, function(res) {
+      cb(res);
+    });
   },
 
   update: function(objColVals, condition, cb) {
     orm.update("burgers", objColVals, condition, function(res) {
       cb(res);
     });
-  },
-
-  delete: function(table, condition, cb) {
-    orm.delete("burgers", "id", cb);
   }
 };
 

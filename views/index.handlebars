@@ -1,14 +1,21 @@
 <h1>Eat A Burger</h1>
 <ul>
-    {{#each burgers}}
+    {{#each burger}} {{#unless devoured}}
     <li>
         <p>
             {{this.id}}. {{this.burger_name}}
 
-            <button data-burgersid="{{this.id}}" class="devburger">Devour</button>
+            <button data-burgerid="{{this.id}}" class="devburger" data-newDevour={{devoured}}>Devour</button>
         </p>
     </li>
-    {{/each}}
+    {{/unless}} {{/each}}
+</ul>
+<ul>
+    {{#each burger}} {{#if devoured}}
+    <li>
+        {{id}} {{burger_name}}
+    </li>
+    {{/if}} {{/each}}
 </ul>
 
 <h2>Add a Burger to Devour</h2>
@@ -16,42 +23,3 @@
     <textarea type="text" name="burger"></textarea>
     <button type="submit">Add Burger!</button>
 </form>
-
-
-<script type="text/javascript">
-
-    $(".devburger").on("click", function (event) {
-        var id = $(this).data("burgersid");
-
-        // Send the DELETE request.
-        $.ajax("/burgers/" + id, {
-            type: "DELETE"
-        }).then(
-            function () {
-                console.log("deleted id ", id);
-
-                location.reload();
-            }
-        );
-    });
-
-    $("#addburger").on("submit", function (event) {
-        event.preventDefault();
-
-        var newBurger = {
-            burger: $("#addburger [name=burger]").val().trim()
-        };
-
-        // Send the POST request.
-        $.ajax("/burgers", {
-            type: "POST",
-            data: newBurger
-        }).then(
-            function () {
-                console.log("added new burger");
-
-                location.reload();
-            }
-        );
-    });
-</script>
