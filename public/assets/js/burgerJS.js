@@ -17,7 +17,7 @@ $(function() {
     event.preventDefault();
 
     var newBurger = {
-      burger: $("#addburger")
+      burger: $("#burgerInput")
         .val()
         .trim()
     };
