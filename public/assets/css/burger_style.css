@@ -17,3 +17,7 @@ ul,
 p {
   font-family: "Quicksand", sans-serif;
 }
+
+ul {
+  list-style-type: none;
+}
