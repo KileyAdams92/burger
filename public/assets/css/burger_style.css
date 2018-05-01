@@ -1,0 +1,19 @@
+body {
+  background-color: lightblue;
+}
+
+.eaten {
+  float: right;
+}
+
+textarea {
+  width: 800px;
+  margin: 0 auto;
+}
+
+h1,
+li,
+ul,
+p {
+  font-family: "Quicksand", sans-serif;
+}
